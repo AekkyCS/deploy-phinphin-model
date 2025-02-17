@@ -1,13 +1,14 @@
 import streamlit as st
 import pickle
 import numpy as np
-
+import joblib
 # Load the model and scaler
 with open("kmeans_model.pkl", "rb") as f:
-    model = pickle.load(f)
+    model = joblib.load(f)
+
 
 with open("scaler.pkl", "rb") as f:
-    scaler = pickle.load(f)
+    scaler = joblib.load(f)
 
 # Segment mapping
 segment_map = {
