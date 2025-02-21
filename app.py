@@ -68,11 +68,11 @@ def display_code_only(ipynb_path):
     # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดงโค้ด
     if st.button("Show Code"):
         # ใช้ Streamlit เพื่อแสดงแค่โค้ด
-        for index, cell in enumerate(notebook_content.cells):
+        for cell in notebook_content.cells:
             if cell.cell_type == 'code':
                 code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
-                # ใช้ index เป็น key แทน
-                st.code(code, language='python', key=f"code_{index}")  # แสดงโค้ดใน Streamlit
+                # แสดงโค้ดใน Streamlit โดยไม่ใช้ key
+                st.code(code, language='python')  # แสดงโค้ดใน Streamlit
 
 # Streamlit app
 def app():
