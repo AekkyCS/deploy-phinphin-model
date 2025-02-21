@@ -53,25 +53,12 @@ def display_code_only(ipynb_path):
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
 
-    # ใช้ CSS เพื่อปรับขนาดการแสดงผลโค้ด
-    st.markdown("""
-    <style>
-        .code-cell pre {
-            font-size: 18px;  /* ปรับขนาดตัวอักษร */
-            width: 100%;      /* ปรับให้กว้างเต็มหน้าจอ */
-            max-width: 100%;  /* กำหนดความกว้างสูงสุด */
-            overflow-x: auto; /* ให้มี scroll bar ถ้าข้อความยาวเกิน */
-        }
-    </style>
-    """, unsafe_allow_html=True)
-
     # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดงโค้ด
     if st.button("Show Code"):
         # ใช้ Streamlit เพื่อแสดงแค่โค้ด
         for cell in notebook_content.cells:
             if cell.cell_type == 'code':
                 code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
-                # แสดงโค้ดใน Streamlit โดยไม่ใช้ key
                 st.code(code, language='python')  # แสดงโค้ดใน Streamlit
 
 # Streamlit app
