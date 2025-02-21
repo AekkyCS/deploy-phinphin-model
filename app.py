@@ -51,3 +51,6 @@ def display_notebook(ipynb_path):
     
     # Display in Streamlit
     st.markdown(body, unsafe_allow_html=True)
+st.title("Display Jupyter Notebook in Streamlit")
+    ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # Replace with your file path
+    display_notebook(ipynb_path)
