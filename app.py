@@ -49,32 +49,24 @@ import streamlit as st
 import nbformat
 
 
-def display_code_and_output(ipynb_path):
+def display_code_only(ipynb_path):
     # อ่านและโหลดเนื้อหาจาก Notebook
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
 
-    # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดงโค้ดและผลลัพธ์
-    if st.button("Show Code and Output"):
-        # ใช้ Streamlit เพื่อแสดงโค้ดและผลลัพธ์
+    # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดงโค้ด
+    if st.button("Show Code"):
+        # ใช้ Streamlit เพื่อแสดงแค่โค้ด
         for cell in notebook_content.cells:
             if cell.cell_type == 'code':
-                # แสดงโค้ด
-                code = cell.source
-                st.code(code, language='python')
-
-                # แสดงผลลัพธ์
-                if cell.outputs:
-                    for output in cell.outputs:
-                        if 'text/plain' in output.data:
-                            result = output.data['text/plain']
-                            st.write(result)
+                code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
+                st.code(code, language='python')  # แสดงโค้ดใน Streamlit
 
 # Streamlit app
 def app():
-    st.title("Display Jupyter Notebook Code and Output in Streamlit")
+    st.title("Display Jupyter Notebook Code Only in Streamlit")
     ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # เปลี่ยนเป็น path ของไฟล์คุณ
-    display_code_and_output(ipynb_path)
+    display_code_only(ipynb_path)
 
 if __name__ == "__main__":
     app()
