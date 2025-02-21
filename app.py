@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import nbformat
 import numpy as np
 # Load the model and scaler
 with open("kmeans_model.pkl", "rb") as f:
@@ -42,12 +43,13 @@ if st.button("Predict Cluster"):
 from nbconvert import HTMLExporter
 
 def display_notebook(ipynb_path):
-    # Convert .ipynb to HTML
+    # Read and load the notebook content using nbformat
     with open(ipynb_path, 'r') as f:
-        notebook_content = f.read()
+        notebook_content = nbformat.read(f, as_version=4)
 
+    # Convert .ipynb to HTML
     html_exporter = HTMLExporter()
-    (body, resources) = html_exporter.from_notebook_node(notebook_content)
+    body, resources = html_exporter.from_notebook_node(notebook_content)
     
     # Display in Streamlit
     st.markdown(body, unsafe_allow_html=True)
