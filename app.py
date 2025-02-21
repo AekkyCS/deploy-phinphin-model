@@ -50,7 +50,7 @@ import nbformat
 
 
 
-def display_code_only(ipynb_path):
+def display_code_and_markdown(ipynb_path):
     # อ่านและโหลดเนื้อหาจาก Notebook
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
@@ -63,18 +63,21 @@ def display_code_only(ipynb_path):
     if st.button("Show Code"):
         st.session_state.show_code = not st.session_state.show_code  # เปลี่ยนสถานะให้ตรงกันกับการกด
 
-    # แสดงโค้ดถ้าสถานะ show_code เป็น True
+    # แสดงโค้ดและมาร์กดาวน์ถ้าสถานะ show_code เป็น True
     if st.session_state.show_code:
         for cell in notebook_content.cells:
             if cell.cell_type == 'code':
                 code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
                 st.code(code, language='python')  # แสดงโค้ดใน Streamlit
+            elif cell.cell_type == 'markdown':
+                markdown = cell.source  # ดึงมาร์กดาวน์
+                st.markdown(markdown)  # แสดงมาร์กดาวน์ใน Streamlit
 
 # Streamlit app
 def app():
-    st.title("Display Jupyter Notebook Code Only in Streamlit")
+    st.title("Display Jupyter Notebook Code and Markdown in Streamlit")
     ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # เปลี่ยนเป็น path ของไฟล์คุณ
-    display_code_only(ipynb_path)
+    display_code_and_markdown(ipynb_path)
 
 if __name__ == "__main__":
     app()
