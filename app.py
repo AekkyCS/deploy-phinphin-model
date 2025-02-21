@@ -45,22 +45,19 @@ import streamlit as st
 import nbformat
 from nbconvert import HTMLExporter
 
+import streamlit as st
+import nbformat
+
 def display_code_only(ipynb_path):
     # อ่านและโหลดเนื้อหาจาก Notebook
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
 
-    # สร้าง HTMLExporter สำหรับแปลงเป็น HTML
-    html_exporter = HTMLExporter()
-
-    # กำหนดว่าจะให้แสดงแค่โค้ด (code cells)
-    html_exporter.exclude_input = False   # ให้แสดงโค้ด
-    html_exporter.exclude_output = True   # ไม่ให้แสดงผลลัพธ์
-
-    body, resources = html_exporter.from_notebook_node(notebook_content)
-    
-    # แสดงใน Streamlit
-    st.markdown(body, unsafe_allow_html=True)
+    # ใช้ Streamlit เพื่อแสดงแค่โค้ด
+    for cell in notebook_content.cells:
+        if cell.cell_type == 'code':
+            code = ''.join(cell.source.splitlines())  # รวมโค้ดในแต่ละบรรทัด
+            st.code(code, language='python')  # แสดงโค้ดใน Streamlit
 
 # Streamlit app
 def app():
@@ -70,3 +67,4 @@ def app():
 
 if __name__ == "__main__":
     app()
+
