@@ -41,24 +41,32 @@ if st.button("Predict Cluster"):
     except Exception as e:
         st.error(f"Error: {str(e)}")
 from nbconvert import HTMLExporter
+import streamlit as st
+import nbformat
+from nbconvert import HTMLExporter
 
-def display_notebook(ipynb_path):
-    # Read and load the notebook content using nbformat
+def display_code_only(ipynb_path):
+    # อ่านและโหลดเนื้อหาจาก Notebook
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
 
-    # Convert .ipynb to HTML
+    # สร้าง HTMLExporter สำหรับแปลงเป็น HTML
     html_exporter = HTMLExporter()
+
+    # กำหนดว่าจะให้แสดงแค่โค้ด (code cells)
+    html_exporter.exclude_input = False   # ให้แสดงโค้ด
+    html_exporter.exclude_output = True   # ไม่ให้แสดงผลลัพธ์
+
     body, resources = html_exporter.from_notebook_node(notebook_content)
     
-    # Display in Streamlit
+    # แสดงใน Streamlit
     st.markdown(body, unsafe_allow_html=True)
 
 # Streamlit app
 def app():
-    st.title("Display Jupyter Notebook in Streamlit")
-    ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # Replace with your file path
-    display_notebook(ipynb_path)
+    st.title("Display Jupyter Notebook Code Only in Streamlit")
+    ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # เปลี่ยนเป็น path ของไฟล์คุณ
+    display_code_only(ipynb_path)
 
 if __name__ == "__main__":
     app()
