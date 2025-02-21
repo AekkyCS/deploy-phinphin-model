@@ -39,3 +39,15 @@ if st.button("Predict Cluster"):
         st.success(f"The predicted cluster is: {cluster_label}")
     except Exception as e:
         st.error(f"Error: {str(e)}")
+from nbconvert import HTMLExporter
+
+def display_notebook(ipynb_path):
+    # Convert .ipynb to HTML
+    with open(ipynb_path, 'r') as f:
+        notebook_content = f.read()
+
+    html_exporter = HTMLExporter()
+    (body, resources) = html_exporter.from_notebook_node(notebook_content)
+    
+    # Display in Streamlit
+    st.markdown(body, unsafe_allow_html=True)
