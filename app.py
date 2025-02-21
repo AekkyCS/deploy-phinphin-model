@@ -54,9 +54,23 @@ def display_code_only(ipynb_path):
     with open(ipynb_path, 'r') as f:
         notebook_content = nbformat.read(f, as_version=4)
 
-    # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดงโค้ด
-    if st.button("Show Code"):
-        # ใช้ Streamlit เพื่อแสดงแค่โค้ด
+    # ใช้ session_state เพื่อเก็บสถานะการแสดงโค้ด
+    if 'show_code' not in st.session_state:
+        st.session_state.show_code = False  # กำหนดสถานะเริ่มต้นเป็น False (ไม่แสดงโค้ด)
+
+    # เปลี่ยนชื่อปุ่มตามสถานะ
+    if st.session_state.show_code:
+        button_text = "Hide Code"
+    else:
+        button_text = "Show Code"
+
+    # สร้างปุ่มให้ผู้ใช้กดเพื่อแสดง/ซ่อนโค้ด
+    if st.button(button_text):
+        # สลับสถานะของ show_code
+        st.session_state.show_code = not st.session_state.show_code
+
+    # แสดงโค้ดถ้า show_code เป็น True
+    if st.session_state.show_code:
         for cell in notebook_content.cells:
             if cell.cell_type == 'code':
                 code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
