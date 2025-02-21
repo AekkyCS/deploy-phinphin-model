@@ -59,9 +59,10 @@ def display_code_only(ipynb_path):
     if 'show_code' not in st.session_state:
         st.session_state.show_code = False  # กำหนดค่าเริ่มต้นเป็น False (ไม่แสดงโค้ด)
 
-    # สร้างปุ่มเพื่อควบคุมการแสดงโค้ด
+    # กำหนดข้อความของปุ่มตามสถานะ
     button_label = "Hide Code" if st.session_state.show_code else "Show Code"
     
+    # เมื่อกดปุ่มจะเปลี่ยนสถานะของ show_code
     if st.button(button_label):
         st.session_state.show_code = not st.session_state.show_code  # เปลี่ยนสถานะเมื่อกดปุ่ม
 
