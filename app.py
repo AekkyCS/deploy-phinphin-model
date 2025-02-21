@@ -66,7 +66,8 @@ def display_code_only(ipynb_path):
     
     if st.button(button_label):
         st.session_state.show_code = not st.session_state.show_code  # เปลี่ยนสถานะเมื่อกดปุ่ม
-    
+        st.experimental_rerun()  # รีเฟรชแอปทันทีเพื่ออัพเดทปุ่มและการแสดงโค้ด
+
     # แสดงโค้ดถ้าสถานะ show_code เป็น True
     if st.session_state.show_code:
         for cell in notebook_content.cells:
