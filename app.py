@@ -17,7 +17,7 @@ segment_map = {
 }
 
 # Streamlit UI
-st.title("Customer Segmentation using K-Means")
+st.title("Customer Segmentation using K-Means By Phinphin")
 st.write("Enter the RFM values to predict the customer cluster.")
 
 # Input fields for RFM values
