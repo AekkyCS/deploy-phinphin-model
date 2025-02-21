@@ -49,6 +49,7 @@ import streamlit as st
 import nbformat
 
 
+
 def display_code_only(ipynb_path):
     # อ่านและโหลดเนื้อหาจาก Notebook
     with open(ipynb_path, 'r') as f:
@@ -59,14 +60,10 @@ def display_code_only(ipynb_path):
         st.session_state.show_code = False  # กำหนดค่าเริ่มต้นเป็น False (ไม่แสดงโค้ด)
 
     # สร้างปุ่มเพื่อควบคุมการแสดงโค้ด
-    if st.session_state.show_code:
-        button_label = "Hide Code"
-    else:
-        button_label = "Show Code"
+    button_label = "Hide Code" if st.session_state.show_code else "Show Code"
     
     if st.button(button_label):
         st.session_state.show_code = not st.session_state.show_code  # เปลี่ยนสถานะเมื่อกดปุ่ม
-        st.experimental_rerun()  # รีเฟรชแอปทันทีเพื่ออัพเดทปุ่มและการแสดงโค้ด
 
     # แสดงโค้ดถ้าสถานะ show_code เป็น True
     if st.session_state.show_code:
