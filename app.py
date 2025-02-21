@@ -75,7 +75,7 @@ def display_code_and_markdown(ipynb_path):
 
 # Streamlit app
 def app():
-    st.title("Display Jupyter Notebook Code and Markdown in Streamlit")
+    st.title("Display Jupyter Notebook Code and Markdown")
     ipynb_path = 'GROUP 7 REAL FINAL.ipynb'  # เปลี่ยนเป็น path ของไฟล์คุณ
     display_code_and_markdown(ipynb_path)
 
