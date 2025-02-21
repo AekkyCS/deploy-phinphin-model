@@ -59,19 +59,18 @@ def display_code_only(ipynb_path):
     if 'show_code' not in st.session_state:
         st.session_state.show_code = False  # กำหนดค่าเริ่มต้นเป็น False (ไม่แสดงโค้ด)
 
-    # กำหนดข้อความของปุ่มตามสถานะ
-    button_label = "Hide Code" if st.session_state.show_code else "Show Code"
-    
-    # เมื่อกดปุ่มจะเปลี่ยนสถานะของ show_code
-    if st.button(button_label):
-        st.session_state.show_code = not st.session_state.show_code  # เปลี่ยนสถานะเมื่อกดปุ่ม
+    # กำหนดปุ่ม Show Code
+    if st.button("Show Code"):
+        st.session_state.show_code = True  # เมื่อกด Show Code ให้แสดงโค้ด
 
-    # แสดงโค้ดถ้าสถานะ show_code เป็น True
+    # ซ่อนโค้ดเมื่อกดปุ่มอีกครั้ง
     if st.session_state.show_code:
         for cell in notebook_content.cells:
             if cell.cell_type == 'code':
                 code = cell.source  # ดึงโค้ดมาโดยไม่ต้องรวมบรรทัด
                 st.code(code, language='python')  # แสดงโค้ดใน Streamlit
+    
+    # ปุ่มนี้จะไม่มีการเปลี่ยนคำให้เป็น "Hide Code" เพราะเราจะเก็บโค้ดแค่ตอน Show เท่านั้น
 
 # Streamlit app
 def app():
